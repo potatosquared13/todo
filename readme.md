@@ -30,7 +30,6 @@
         "description": "Desc",
         "isCompleted": "true"
     },
-    ...
 }
 ```
 
