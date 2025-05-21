@@ -2,6 +2,7 @@ package com.example.todo.controller;
 
 import com.example.todo.entity.Task;
 import com.example.todo.service.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,9 @@ import java.util.stream.Collectors;
 @RequestMapping("api/tasks")
 public class TaskController {
 
-    public TaskService taskService;
+    private TaskService taskService;
 
+    @Autowired
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
@@ -32,10 +34,12 @@ public class TaskController {
 
     @GetMapping("/completed")
     public List<Task> getCompletedTasks() {
+        return taskService.getallTasks().stream().filter(Task::getCompleted).collect(Collectors.toList());
+    }
 
-        return taskService.getallTasks().stream()
-                .filter(Task::getCompleted)
-                .collect(Collectors.toList());
+    @GetMapping("/pending")
+    public List<Task> getPendingTasks() {
+        return taskService.getallTasks().stream().filter(Task::getPending).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")

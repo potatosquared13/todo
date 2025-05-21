@@ -32,8 +32,8 @@ public class Task {
         this.title = validateTitle(title);
     }
 
-    public String validateTitle(String title) {
-        if (Objects.equals(title, " ")) throw new RuntimeException("Title cannot be empty!");
+    private String validateTitle(String title) {
+        if (Objects.equals(title, " ")) throw new RuntimeException("Title cannot be empty!"); // TODO: create custom exception
 
         return title;
     }
@@ -48,6 +48,10 @@ public class Task {
 
     public Boolean getCompleted() {
         return isCompleted;
+    }
+
+    public Boolean getPending() {
+        return !isCompleted;
     }
 
     public void setCompleted(Boolean completed) {
